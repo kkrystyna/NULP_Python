@@ -11,8 +11,6 @@ servers:
   - url: 'http://course.swagger.io/api/v2'
 
 tags:
-- name: auth
-  description: API authorization
 - name: user
   description: Operations with users
 - name: course
@@ -21,33 +19,7 @@ tags:
   description: Operations with students
 
 paths:
-  /auth:
-    post:
-      tags:
-        - auth
-      summary: 'Authenticates a user, returns the user level'
-      operationId: getUserLevel
-      requestBody:
-        description: Personal information
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/personal_information'
-        required: true
-      responses:
-        '200':
-          description: User level
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/user_level'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-
+ 
   /user:
     post:
       tags:
