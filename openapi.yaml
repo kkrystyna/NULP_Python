@@ -354,6 +354,10 @@ paths:
         - course
       summary: Add a new student
       operationId: addstudent
+       parameters:
+      - name: limit
+      in: query
+      description: How many students to be on course at one time (max 5)                
       requestBody:
         content:
           application/json:
@@ -392,6 +396,12 @@ paths:
         - student
       summary: Request to enroll course
       operationId: requestenroll
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -451,7 +461,89 @@ paths:
         - write:student
         - read:student
       - api_key: [ ]
-    
+ /request/{id_course}':
+    post:
+      tags:
+        - lecturer
+      summary: Accept enrolling course
+      operationId: acceptenroll
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/accept_enroll'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/lecturer'
+        '400':
+          description: User is not authorized
+          content: {}
+        '404':
+          description: Only lecturer can do that
+          content: {}
+        '405':
+          description: You are not allowed to accept
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer
+        - read:lecturer
+      - api_key: [ ]
+    delete:
+      tags:
+        - lecturer
+      summary: Deny enrolling course
+      operationId: denyenroll
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: {}
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only Lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        '403':
+          description: Course not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+        - course_auth:
+          - write:lecturer
+          - read:lecturer
+        - api_key: [ ]
 
 components:
   schemas:
@@ -531,6 +623,12 @@ components:
           type: string
       nullable: false
     request_enroll:
+      type: object
+      properties:
+        course id:
+          type: string
+      nullable: false
+    accept_enroll:
       type: object
       properties:
         course id:
