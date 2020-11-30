@@ -1,0 +1,593 @@
+openapi: 3.0.1
+info:
+  title: Online lessons
+  description: Online lessons REST API
+  contact:
+        name:  Khrystyna
+        email: khrystyna.kmit.knm.2019@lpnu.ua
+  version: 1.0.0
+servers:
+  - url: 'https://course.swagger.io/api/v2'
+  - url: 'http://course.swagger.io/api/v2'
+
+tags:
+- name: auth
+  description: API authorization
+- name: user
+  description: Operations with users
+- name: course
+  description: Operations with courses
+- name: student
+  description: Operations with students
+
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: 'Authenticates a user, returns the user level'
+      operationId: getUserLevel
+      requestBody:
+        description: Personal information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/personal_information'
+        required: true
+      responses:
+        '200':
+          description: User level
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_level'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+
+  /user:
+    post:
+      tags:
+        - user 
+      description: Operations with users
+      summary: Operations with users
+      operationId: createuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_user'
+      responses:
+        '300':
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+      - api_key: [ ]
+  /user/lecturer:
+    post:
+      tags:
+        - user
+      summary: lecturer
+      operationId: createlecturer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_user'
+      responses:
+        '300':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+        - write:lecturer
+        - read:lecturer
+      - api_key: [ ]
+  '/user/{id_user}':
+    get:
+      tags:
+        - user
+      summary: Get user data
+      operationId: getdata
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '301':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - read:student
+      - api_key: [ ]
+    put:
+      tags:
+        - user
+      summary: Update user data
+      operationId: Updatedata 
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_user'
+      responses:
+        '301':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+      - api_key: [ ]
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      operationId: deleteuser 
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+        - course_auth:
+          - write:lecturer
+          - read:lecturer
+        - api_key: [ ]
+  /course:
+    post:
+      tags:
+        - course
+      summary: Add a new course
+      operationId: addcourse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_course'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/course'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer
+        - read:lecturer
+      - api_key: [ ]
+    get:
+      tags:
+        - course
+      summary: Get all the courses
+      operationId: getcourses
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/course'
+                nullable: false
+        '403':
+          description: course not found
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+      - api_key: [ ]
+    put:
+      tags:
+        - course
+      summary: Update the course with such id
+      operationId: Updatecourse
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_course'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/course'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        '403':
+          description: Course not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer
+        - read:lecturer
+      - api_key: [ ]
+    delete:
+      tags:
+        - course
+      summary: Delete the course with such id
+      operationId: deletecourse 
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content: {}
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only administrator can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        '403':
+          description: Course not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+        - course_auth:
+          - write:lecturer
+          - read:lecturer
+        - api_key: [ ]
+  course:
+    post:
+      tags:
+        - course
+      summary: Add a new student
+      operationId: addstudent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_course'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/course'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer
+        - read:lecturer
+      - api_key: [ ]
+  /student:
+    post:
+      tags:
+        - student
+      summary: Request to enroll course
+      operationId: requestenroll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/request_enroll'
+        required: true
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/student'
+        '400':
+          description: User is not authorized
+          content: {}
+        '404':
+          description: Only student can do that
+          content: {}
+        '405':
+          description: You are not allowed to enroll
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+      - api_key: [ ]
+    get:
+      tags:
+        - student
+      summary: View all the available courses
+      operationId: getavailable
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/student'
+                nullable: false
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:student
+        - read:student
+      - api_key: [ ]
+    
+
+components:
+  schemas:
+    personal_information:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    user_level:
+      required:
+        - user_level
+      type: object
+      properties:
+        user level:
+          type: string
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+        first name:
+          type: string
+        last name:
+          type: string
+        birthday:
+          type: string
+          format: date
+        email:
+          type: string
+        role:
+          type: string
+      nullable: false
+    course:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          format: float
+      nullable: false
+    student:
+      type: object
+      properties:
+        user id:
+          type: string
+        course id:
+          type: string
+          format: float
+        
+      nullable: false
+    create_user:
+      type: object
+      properties:
+        first name:
+          type: string
+        last name:
+          type: string
+        birthday:
+          type: string
+          format: date
+        email:
+          type: string
+        role:
+          type: string
+      nullable: false
+    create_course:
+      type: object
+      properties:
+        name:
+          type: string
+      nullable: false
+    request_enroll:
+      type: object
+      properties:
+        course id:
+          type: string
+      nullable: false
+    error:
+      required:
+        - code
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+
+            
+  securitySchemes:
+    course_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://course.swagger.io/oauth/dialog
+          scopes:
+            write:student: modify user in your account
+            read:student: read your course
+            write:lecturer: modify user in your account
+            read:lecturer: read your course
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+
