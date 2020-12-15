@@ -264,6 +264,7 @@ paths:
         - write:student
         - read:student
       - api_key: [ ]
+  '/course/{id_course}':
     put:
       tags:
         - course
@@ -348,15 +349,17 @@ paths:
           - write:lecturer
           - read:lecturer
         - api_key: [ ]
-  course:
     post:
       tags:
         - course
       summary: Add a new student
       operationId: addstudent
-       parameters:
-      - name: limit
-      in: query
+      parameters:
+        - name: id_course
+          in: path
+          required: true
+          schema:
+            type: string
       description: How many students to be on course at one time (max 5)                
       requestBody:
         content:
@@ -390,10 +393,10 @@ paths:
         - write:lecturer
         - read:lecturer
       - api_key: [ ]
-  /student:
+  '/student{id_course}':
     post:
       tags:
-        - student
+        - application
       summary: Request to enroll course
       operationId: requestenroll
       parameters:
@@ -435,36 +438,10 @@ paths:
         - write:student
         - read:student
       - api_key: [ ]
-    get:
-      tags:
-        - student
-      summary: View all the available courses
-      operationId: getavailable
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/student'
-                nullable: false
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-      security:
-      - course_auth:
-        - write:student
-        - read:student
-      - api_key: [ ]
- /request/{id_course}':
+  '/lecturer{id_course}':
     post:
       tags:
-        - lecturer
+        - application
       summary: Accept enrolling course
       operationId: acceptenroll
       parameters:
@@ -508,7 +485,7 @@ paths:
       - api_key: [ ]
     delete:
       tags:
-        - lecturer
+        - application
       summary: Deny enrolling course
       operationId: denyenroll
       parameters:
@@ -582,6 +559,23 @@ components:
         role:
           type: string
       nullable: false
+    lecturer:
+      type: object
+      properties:
+        id:
+          type: string
+        first name:
+          type: string
+        last name:
+          type: string
+        birthday:
+          type: string
+          format: date
+        email:
+          type: string
+        role:
+          type: string
+      nullable: false  
     course:
       type: object
       properties:
