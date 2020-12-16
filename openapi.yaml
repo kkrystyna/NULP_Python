@@ -11,22 +11,167 @@ servers:
   - url: 'http://course.swagger.io/api/v2'
 
 tags:
-- name: user
-  description: Operations with users
-- name: course
-  description: Operations with courses
+- name: lecturer
+  description: Operations with lecturer
 - name: student
   description: Operations with students
+- name: course
+  description: Operations with courses
+- name: application
+  description: Operations with applications
 
 paths:
  
-  /user:
+  /lecturer:
     post:
       tags:
-        - user 
-      description: Operations with users
-      summary: Operations with users
+        - lecturer 
+      description: Operations with lecturer 
+      summary: Operations with lecturer 
       operationId: createuser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_user'
+      responses:
+        '300':
+          description: User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer 
+        - read:lecturer 
+      - api_key: [ ]
+  '/lecturer /{id_user}':
+    get:
+      tags:
+        - lecturer 
+      summary: Get user data
+      operationId: getdata
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '301':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - read:lecturer 
+      - api_key: [ ]
+    put:
+      tags:
+        - lecturer 
+      summary: Update user data
+      operationId: Updatedata 
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_user'
+      responses:
+        '301':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+      - course_auth:
+        - write:lecturer 
+        - read:lecturer 
+      - api_key: [ ]
+    delete:
+      tags:
+        - lecturer 
+      summary: Delete user
+      operationId: deleteuser 
+      parameters:
+        - name: id_user
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: User is not authorized
+          content: {}
+        '401':
+          description: Only lecturer can do that
+          content: {}
+        '402':
+          description: User not found
+          content: {}
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      security:
+        - course_auth:
+          - write:lecturer
+          - read:lecturer
+        - api_key: [ ]
+  /student:
+    post:
+      tags:
+        - student 
+      description: Operations with students
+      summary: Operations with students
+      operationId: createstudent
       requestBody:
         content:
           application/json:
@@ -50,43 +195,12 @@ paths:
         - write:student
         - read:student
       - api_key: [ ]
-  /user/lecturer:
-    post:
-      tags:
-        - user
-      summary: lecturer
-      operationId: createlecturer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/create_user'
-      responses:
-        '300':
-          description: ''
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/user'
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-      security:
-      - course_auth:
-        - write:student
-        - read:student
-        - write:lecturer
-        - read:lecturer
-      - api_key: [ ]
-  '/user/{id_user}':
+  '/student/{id_user}':
     get:
       tags:
-        - user
+        - student
       summary: Get user data
-      operationId: getdata
+      operationId: getuserdata
       parameters:
         - name: id_user
           in: path
@@ -121,9 +235,9 @@ paths:
       - api_key: [ ]
     put:
       tags:
-        - user
+        - student
       summary: Update user data
-      operationId: Updatedata 
+      operationId: Updatestudentdata 
       parameters:
         - name: id_user
           in: path
@@ -164,9 +278,9 @@ paths:
       - api_key: [ ]
     delete:
       tags:
-        - user
+        - student
       summary: Delete user
-      operationId: deleteuser 
+      operationId: deletestudentuser 
       parameters:
         - name: id_user
           in: path
@@ -593,7 +707,6 @@ components:
         course id:
           type: string
           format: float
-        
       nullable: false
     create_user:
       type: object
