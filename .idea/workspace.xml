@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8db15766-4c2f-402e-a431-093cea539a44" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+      </list>
+    </option>
+  </component>
+  <component name="JupyterTrust" id="fe38405b-aebf-44ce-9056-c3eea5fe4b03" />
+  <component name="ProjectId" id="1lk02rM1IXjz2XaDKDcY48LWL1G" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Lab7" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Nowy folder" type="Python.FlaskServer">
+      <module name="Nowy folder" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8db15766-4c2f-402e-a431-093cea539a44" name="Default Changelist" comment="" />
+      <created>1608125578653</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1608125578653</updated>
+      <workItem from="1608125580200" duration="344000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608125601296">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="17" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1608125601296" />
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1608335058263">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1608335058263" />
+    <state width="1322" height="307" key="GridCell.Tab.0.bottom" timestamp="1608125709135">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="307" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1608125709135" />
+    <state width="1322" height="307" key="GridCell.Tab.0.center" timestamp="1608125709135">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="307" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1608125709135" />
+    <state width="1322" height="307" key="GridCell.Tab.0.left" timestamp="1608125709135">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="307" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1608125709135" />
+    <state width="1322" height="307" key="GridCell.Tab.0.right" timestamp="1608125709135">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="307" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1608125709135" />
+  </component>
+</project>
