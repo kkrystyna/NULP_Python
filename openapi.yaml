@@ -33,14 +33,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_user'
+              $ref: '#/components/schemas/create_lecturer'
       responses:
         '300':
           description: User
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/lecturer'
         default:
           description: Error
           content:
@@ -52,14 +52,14 @@ paths:
         - write:lecturer 
         - read:lecturer 
       - api_key: [ ]
-  '/lecturer /{id_user}':
+  '/lecturer /{id_lecturer}':
     get:
       tags:
         - lecturer 
       summary: Get user data
       operationId: getdata
       parameters:
-        - name: id_user
+        - name: id_lecturer
           in: path
           required: true
           schema:
@@ -70,7 +70,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/lecturer'
         '400':
           description: User is not authorized
           content: {}
@@ -96,7 +96,7 @@ paths:
       summary: Update user data
       operationId: Updatedata 
       parameters:
-        - name: id_user
+        - name: id_lecturer
           in: path
           required: true
           schema:
@@ -105,14 +105,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_user'
+              $ref: '#/components/schemas/create_lecturer'
       responses:
         '301':
           description: ''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/lecturer'
         '400':
           description: User is not authorized
           content: {}
@@ -139,7 +139,7 @@ paths:
       summary: Delete user
       operationId: deleteuser 
       parameters:
-        - name: id_user
+        - name: id_lecturer
           in: path
           required: true
           schema:
@@ -176,14 +176,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_user'
+              $ref: '#/components/schemas/create_student'
       responses:
         '300':
           description: User
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/student'
         default:
           description: Error
           content:
@@ -195,14 +195,14 @@ paths:
         - write:student
         - read:student
       - api_key: [ ]
-  '/student/{id_user}':
+  '/student/{id_student}':
     get:
       tags:
         - student
       summary: Get user data
       operationId: getuserdata
       parameters:
-        - name: id_user
+        - name: id_student
           in: path
           required: true
           schema:
@@ -213,7 +213,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/student'
         '400':
           description: User is not authorized
           content: {}
@@ -239,7 +239,7 @@ paths:
       summary: Update user data
       operationId: Updatestudentdata 
       parameters:
-        - name: id_user
+        - name: id_student
           in: path
           required: true
           schema:
@@ -248,14 +248,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_user'
+              $ref: '#/components/schemas/create_student'
       responses:
         '301':
           description: ''
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/student'
         '400':
           description: User is not authorized
           content: {}
@@ -282,7 +282,7 @@ paths:
       summary: Delete user
       operationId: deletestudentuser 
       parameters:
-        - name: id_user
+        - name: id_student
           in: path
           required: true
           schema:
@@ -649,30 +649,7 @@ components:
         password:
           type: string
 
-    user_level:
-      required:
-        - user_level
-      type: object
-      properties:
-        user level:
-          type: string
-    user:
-      type: object
-      properties:
-        id:
-          type: string
-        first name:
-          type: string
-        last name:
-          type: string
-        birthday:
-          type: string
-          format: date
-        email:
-          type: string
-        role:
-          type: string
-      nullable: false
+
     lecturer:
       type: object
       properties:
@@ -708,7 +685,22 @@ components:
           type: string
           format: float
       nullable: false
-    create_user:
+    create_lecturer:
+      type: object
+      properties:
+        first name:
+          type: string
+        last name:
+          type: string
+        birthday:
+          type: string
+          format: date
+        email:
+          type: string
+        role:
+          type: string
+      nullable: false
+    create_student:
       type: object
       properties:
         first name:
